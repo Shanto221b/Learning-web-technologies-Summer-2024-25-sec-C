@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<head>
+
+<title> Calculator</title>
+
+<style>
+  body {
+    height: 100;
+    margin: 0;
+    
+  }
+  .calculator {
+    border: 2px solid #000;
+    border-radius: 4px;
+    width: 260px;
+    padding: 10px;
+   background-color: #f1e9ff;
+  }
+ 
+  #display {
+ 
+    border: 2px inset #000;
+
+    height: 50px;
+    margin-bottom: 10px;
+    text-align: right;
+    padding: 5px 10px;
+    background-color: #ede6fd;
+  }
+
+  .buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+     background-color: #e0d5f8;
+  
+  }
+
+
+  button {
+
+    padding: 15px 0;
+    border: 2px outset #000;
+ background-color: #0015ff41;
+  
+  }
+
+  
+  button:active {
+
+    background: #00bbffb8;
+  }
+
+  button.zero {
+
+
+    grid-column: span 2;
+
+  }
+
+
+
+</style>
+</head>
+<body>
+
+<div class="calculator">
+  <div id="display">0</div>
+  <div class="buttons">
+    <button id="clear">C</button>
+    <button id="divide">/</button>
+    <button id="multiply">*</button>
+    <button id="subtract">-</button>
+
+    <button id="7">7</button>
+    <button id="8">8</button>
+    <button id="9">9</button>
+    <button id="add">+</button>
+
+    <button id="4">4</button>
+    <button id="5">5</button>
+    <button id="6">6</button>
+    <button id="equals">=</button>
+
+    <button id="1">1</button>
+    <button id="2">2</button>
+    <button id="3">3</button>
+
+    <button id="0" class="zero">0</button>
+    <button id="decimal">.</button>
+  </div>
+</div>
+
+<script>
+  let display = document.getElementById('display');
+  let buttons = document.querySelectorAll('.buttons button');
+
+  let currentInput = '0';
+  let previousInput = null;
+  let operator = null;
+  let resetNext = false;
+
+  function updateDisplay() {
+    display.textContent = currentInput;
+  }
+
+  function calculate() {
+    let prev = parseFloat(previousInput);
+    let current = parseFloat(currentInput);
+    if (isNaN(prev) || isNaN(current)) return;
+
+    let result;
+    switch(operator) {
+      case '+': result = prev + current; break;
+      case '-': result = prev - current; break;
+      case '*': result = prev * current; break;
+      case '/': 
+        if (current === 0) {
+          alert('Error: Division by zero');
+          return;
+        }
+        result = prev / current; 
+        break;
+      default: return;
+    }
+    currentInput = result.toString();
+    operator = null;
+    previousInput = null;
+    resetNext = true;
+  }
+buttons.forEach(function(button) {
+  button.addEventListener('click', function() {
+    let buttonId = button.id;
+    let buttonText = button.textContent;
+
+    if (buttonId === 'clear') {
+      currentInput = '0';
+      previousInput = null;
+      operator = null;
+      resetNext = false;
+      display.value = currentInput;
+
+    } else if (buttonId === 'equals') {
+      if (operator && previousInput !== null) {
+        if (operator === '+') {
+          currentInput = String(Number(previousInput) + Number(currentInput));
+        } else if (operator === '-') {
+          currentInput = String(Number(previousInput) - Number(currentInput));
+        } else if (operator === '*') {
+          currentInput = String(Number(previousInput) * Number(currentInput));
+        } else if (operator === '/') {
+          currentInput = String(Number(previousInput) / Number(currentInput));
+        }
+        display.value = currentInput;
+        previousInput = null;
+        operator = null;
+      }
+
+    } else if (buttonId === 'add' || buttonId === 'subtract' || buttonId === 'multiply' || buttonId === 'divide') {
+      operator = buttonText;
+      previousInput = currentInput;
+      resetNext = true;
+
+    } else if (buttonId === 'decimal') {
+      if (!currentInput.includes('.')) {
+        currentInput += '.';
+        display.value = currentInput;
+      }
+
+    } else {
+     
+      if (currentInput === '0' || resetNext) {
+        currentInput = buttonText;
+        resetNext = false;
+      } else {
+        currentInput += buttonText;
+      }
+      display.value = currentInput;
+    }
+  
+      updateDisplay();
+    });
+  });
+
+  updateDisplay();
+
+</script>
+
+</body>
+</html>
