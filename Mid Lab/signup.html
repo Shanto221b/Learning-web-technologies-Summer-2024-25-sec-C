@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Signup</title>
+</head>
+<body>
+
+  <h2>Create Account</h2>
+
+  <form method="post" action="login.html" onsubmit="return signupCheck()">
+
+    <label>Full Name:</label><br>
+    <input type="text" name="fullname" id="fullname" onblur="checkFullName()"><br>
+    <p id="nameError"></p>
+
+    <label>Email:</label><br>
+    <input type="email" name="email" id="email" onblur="checkEmail()"><br>
+    <p id="emailError"></p>
+
+    <label>Password:</label><br>
+    <input type="password" name="password" id="password" onblur="checkPassword()"><br>
+    <p id="passwordError"></p>
+
+    <button type="submit">Sign Up</button>
+    <p id="statusMessage"></p>
+
+  </form>
+
+  <p><a href="login.html">Already have an account? Log in</a></p>
+
+  <script>
+
+
+    let nameError = document.getElementById('nameError');
+    let emailError = document.getElementById('emailError');
+    let passwordError = document.getElementById('passwordError');
+    let statusMessage = document.getElementById('statusMessage');
+
+    function checkFullName() 
+    {
+      let fullname = document.getElementById('fullname').value;
+      if (fullname === "") 
+      {
+        nameError.innerHTML = "Please enter your full name.";
+        nameError.style.color = "red";
+      } 
+      
+      else 
+      {
+        nameError.innerHTML = "";
+      }
+
+    }
+
+    function checkEmail() 
+    {
+      let email = document.getElementById('email').value;
+      if (email === "") 
+      {
+        emailError.innerHTML = "Please enter your email.";
+        emailError.style.color = "red";
+      } 
+      
+      else 
+      {
+        emailError.innerHTML = "";
+      }
+
+
+    }
+
+    function checkPassword() 
+    
+    {
+      let password = document.getElementById('password').value;
+      if (password === "") 
+      
+      {
+        passwordError.innerHTML = "Please enter your password.";
+        passwordError.style.color = "blue";
+      } 
+      
+      else 
+      {
+        passwordError.innerHTML = "";
+      }
+
+
+    }
+
+    function signupCheck() 
+    
+    {
+      let fullname = document.getElementById('fullname').value;
+      let email = document.getElementById('email').value;
+      let password = document.getElementById('password').value;
+
+      checkFullName();
+      checkEmail();
+      checkPassword();
+
+      if (fullname !== "" && email !== "" && password !== "") 
+      {
+        alert("Signup successful!");
+        return true; 
+      }
+
+
+      else
+      {
+        statusMessage.innerHTML = "Please fill all the fields correctly.";
+        statusMessage.style.color = "blue";
+        return false; 
+
+      }
+    
+
+    }
+
+
+  </script>
+
+</body>
+</html>

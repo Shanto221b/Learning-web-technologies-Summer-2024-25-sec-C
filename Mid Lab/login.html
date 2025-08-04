@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+ <link rel="stylesheet" type="text/css" href="style.css">
+
+
+
+
+
+</head>
+<body>
+
+  <form method="post" action="YYY.html" onsubmit="return loginCheck()">
+
+
+
+    
+    <label >Email:</label><br>
+    <input type="email" name="email" id="email" onblur="checkEmail()"><br>
+    <p id="emailError"></p>
+
+    <label>Password:</label><br>
+    <input type="password" name="password" id="password" onblur="checkPassword()"><br>
+    <p id="passwordError"></p>
+
+    <button type="submit">Login</button>
+    <p id="statusMessage"></p> 
+
+
+
+
+
+<p><a href="forgot-password.html">Forgot Pass?</a></p>
+  <p><a href="signup.html">Sign up</a></p>
+
+
+  </form>
+
+
+
+
+
+
+  <script>
+
+
+    let emailError = document.getElementById('emailError');
+    let passwordError = document.getElementById('passwordError');
+    let statusMessage = document.getElementById('statusMessage'); 
+
+    function checkEmail() 
+    
+    {
+      let email = document.getElementById('email').value;
+      if (email === "") 
+      {
+        emailError.innerHTML = "Please enter your email.";
+        emailError.style.color = "green"; 
+      } 
+      
+      else 
+      {
+        emailError.innerHTML = "";
+      }
+    
+    
+    }
+
+    function checkPassword() 
+    {
+      let password = document.getElementById('password').value;
+      if (password === "") 
+      {
+        passwordError.innerHTML = "Please enter your password.";
+        passwordError.style.color = "red";
+      } 
+      
+      else 
+      {
+        passwordError.innerHTML = "";
+      }
+
+    }
+
+    function loginCheck() 
+    {
+
+      let email = document.getElementById('email').value;
+      let password = document.getElementById('password').value;
+
+      checkEmail();
+      checkPassword();
+
+      if (email !== "" && password !== "") 
+      
+      {
+        if (email === "shanto@gmail.com" && password === "123") 
+        {
+          alert("Login successful!");
+          return true;
+        }
+        
+        else 
+        {
+          statusMessage.innerHTML = "Invalid email or password.";
+          statusMessage.style.color = "red";
+          return false; 
+        }
+      } 
+      
+      else 
+      {
+        return false;
+      }
+
+    }
+
+
+  </script>
+
+
+
+</body>
+</html>
